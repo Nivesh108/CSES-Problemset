@@ -10,22 +10,22 @@
 using namespace std;
 
 int main(){
-    freopen("input.txt","r",stdin);
-    freopen("output.txt","w",stdout);
+    // Sum of range queries using perfix sum technique
     fast
     ll n,q,a,b;
-    ll sum;
+    ll sum=0;
     cin>>n>>q;
     vll v(n+1);
+    vll s(n+1);
     v[0] = 0;
-    rep(1,n+1) cin>>v[i];
+    rep(1,n+1){
+        cin>>v[i];
+        sum+=v[i];
+        s[i]=sum;
+    }
     while(q--){
-        sum=0;
         cin>>a>>b;
-        rep(a,b+1){
-            sum+= v[i];
-        }
-        cout<<sum<<"\n";
+        cout<<s[b]-s[a-1]<<"\n";
     }
 
     return 0;
