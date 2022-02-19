@@ -6,20 +6,38 @@
 #define     fast        ios::sync_with_stdio(0); cin.tie(0);
 using namespace std;
 
+// calculating nth fibonacci in log(n) time using matrix exponentiation
+
+// void power(ll m[2][2], ll n){
+//     if(n==1||n==0) return;
+//     if(n%2==0) multiply(m,x);
+// }
+
+
+void multiply(ll m[2][2],ll n[2][2]){
+    ll a,b,c,d;
+    a = ( m[0][0]*n[0][0] + m[0][1]*n[1][0] ) % MOD;
+    b = ( m[0][0]*n[0][1] + m[0][1]*n[1][1] ) % MOD;
+    c = ( m[1][0]*n[0][0] + m[1][0]*n[1][0] ) % MOD;
+    d = ( m[1][0]*n[0][1] + m[1][1]*n[1][1] ) % MOD;
+
+    m[0][0] = a;
+    m[0][1] = b;
+    m[1][0] = c;
+    m[1][1] = d;
+}
+ 
+ll fibonacci(ll n){
+    ll m[2][2] = {{1,1},{1,0}};
+    // power(m,n);
+    return m[0][0];
+}
+
 int main(){
-    // Done in linear but required in Log(n)
+    
     fast
-    ll n,f_zero = 0, f_one = 1,ans;
+    ll n;
     cin>>n;
-    if(n==0) cout<<f_zero;
-    else if(n==1) cout<<f_one;
-    else{
-        for(ll i=2;i<=n;i++){
-            ans = (f_zero + f_one) % MOD;
-            f_zero = f_one;
-            f_one = ans;
-        }
-    cout<<ans;
-    }
+    cout<<fibonacci(n);
     return 0;
 }
