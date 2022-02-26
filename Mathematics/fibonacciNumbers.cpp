@@ -8,14 +8,15 @@ using namespace std;
 
 // calculating nth fibonacci in log(n) time using matrix exponentiation
 
-// void power(ll m[2][2], ll n){
-//     if(n==1||n==0) return;
-//     if(n%2==0) multiply(m,x);
-// }
+void power(ll m[2][2], ll n){
+    if(n==1||n==0) return;
+    if(n%2==0) multiply(m);
+}
 
 
-void multiply(ll m[2][2],ll n[2][2]){
+void multiply(ll m[2][2]){
     ll a,b,c,d;
+    ll n[2][2] = {{1,1},{1,0}};
     a = ( m[0][0]*n[0][0] + m[0][1]*n[1][0] ) % MOD;
     b = ( m[0][0]*n[0][1] + m[0][1]*n[1][1] ) % MOD;
     c = ( m[1][0]*n[0][0] + m[1][0]*n[1][0] ) % MOD;
@@ -29,7 +30,7 @@ void multiply(ll m[2][2],ll n[2][2]){
  
 ll fibonacci(ll n){
     ll m[2][2] = {{1,1},{1,0}};
-    // power(m,n);
+    power(m,n);
     return m[0][0];
 }
 
