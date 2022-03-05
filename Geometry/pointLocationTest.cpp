@@ -8,15 +8,16 @@ using namespace std;
 int main(){
 
     fast
-    ld x1,y1,x2,y2,x3,y3,y,m,x,c;
+    ll x1,y1,x2,y2,x3,y3,mx,my,mx2,my2;
     t(t){
         cin>>x1>>y1>>x2>>y2>>x3>>y3;
-        m = (y2-y1)/(x2-x1);
-        c = y2 - m*x2;
-        y = m*x3 + c;
-        if(y == y3) cout<<"TOUCH\n";
-        else if(y > y3) cout<<"LEFT\n";
-        else cout<<"RIGHT\n";
+        mx = x2 - x1;
+        my = y2 - y1;
+        mx2 = x3 - x2;
+        my2 = y3 -y2;
+        if(my*mx2 == mx*my2) cout<<"TOUCH\n";
+        else if(my*mx2 > mx*my2) cout<<"RIGHT\n";
+        else cout<<"LEFT\n";
     }
     return 0;
 }
