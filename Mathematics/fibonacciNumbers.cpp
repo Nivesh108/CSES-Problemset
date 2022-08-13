@@ -1,44 +1,40 @@
 #include<bits/stdc++.h>
-#define     ll          long long
-#define     MOD         1000000007
-#define     vi          vector<int>
-#define     vll         vector<long long>
-#define     fast        ios::sync_with_stdio(0); cin.tie(0);
+#define ll long long
 using namespace std;
+ll mod = 1e9 + 7;
 
-// calculating nth fibonacci in log(n) time using matrix exponentiation
-
-void power(ll m[2][2], ll n){
-    if(n==1||n==0) return;
-    if(n%2==0) multiply(m);
+vector<vector<ll>> multiply(vector<vector<ll>> &a,vector<vector<ll>> &b){
+    vector<vector<ll>> ans(2, vector<ll>(2));
+    ans[0][0] = (((a[0][0] * b[0][0]) % mod) + ((a[0][1] * b[1][0]) % mod)) % mod;
+    ans[0][1] = (((a[0][0] * b[0][1]) % mod) + ((a[0][1] * b[1][1]) % mod)) % mod;
+    ans[1][0] = (((a[1][0] * b[0][0]) % mod) + ((a[1][1] * b[1][0]) % mod)) % mod;
+    ans[1][1] = (((a[1][0] * b[0][1]) % mod) + ((a[1][1] * b[1][1]) % mod)) % mod;
+    return ans;
 }
 
+vector<vector<ll>> pow(vector<vector<ll>> &m, ll n){
+    auto res = m;
 
-void multiply(ll m[2][2]){
-    ll a,b,c,d;
-    ll n[2][2] = {{1,1},{1,0}};
-    a = ( m[0][0]*n[0][0] + m[0][1]*n[1][0] ) % MOD;
-    b = ( m[0][0]*n[0][1] + m[0][1]*n[1][1] ) % MOD;
-    c = ( m[1][0]*n[0][0] + m[1][0]*n[1][0] ) % MOD;
-    d = ( m[1][0]*n[0][1] + m[1][1]*n[1][1] ) % MOD;
-
-    m[0][0] = a;
-    m[0][1] = b;
-    m[1][0] = c;
-    m[1][1] = d;
-}
- 
-ll fibonacci(ll n){
-    ll m[2][2] = {{1,1},{1,0}};
-    power(m,n);
-    return m[0][0];
+    while(n > 0){
+        if(n & 1)
+            res = multiply(res, m);
+        m = multiply(m, m);
+        n = n >> 1;
+    }
+    return res;
 }
 
 int main(){
     
-    fast
     ll n;
-    cin>>n;
-    cout<<fibonacci(n);
+    cin >> n;
+    if(n <= 1){
+        cout << n;
+        return 0;
+    }
+    vector<vector<ll>> v = {{1, 1}, {1, 0}};
+    v = pow(v, n - 2);
+
+    cout << v[0][0];
     return 0;
 }
